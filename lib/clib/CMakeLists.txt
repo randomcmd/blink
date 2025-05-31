@@ -59,8 +59,9 @@ endfunction()
 function(blink_clib_add name src)
 	blink_plugin_get_base_filename(output_name ${name})
 	blink_plugin_get_target_name(target_name ${name})
+	cmrc_add_resource_library(${target_name}_resources ALIAS ${target_name}::rc NAMESPACE plugin "")
 	add_library(${target_name} STATIC ${src})
-	#target_link_libraries(${target_name} PRIVATE blink::plugin ${target_name}::rc)
+	target_link_libraries(${target_name} PRIVATE blink::plugin ${target_name}::rc)
 	target_include_directories(${target_name} PRIVATE ${extra_include_dirs})
 	set_target_properties(${target_name} PROPERTIES
 		OUTPUT_NAME ${output_name}
